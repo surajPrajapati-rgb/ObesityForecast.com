@@ -36,24 +36,6 @@ def portal():
         }
     return render_template('portal.html', data=data)
 
-    # data = request.json
-    
-    # features = [
-    #     float(data['age']), 
-    #     float(data['height']), 
-    #     float(data['weight']),
-    #     # Convert other features similarly
-    # ]
-
-
-    # features = [features] 
-    
-    # prediction = model.predict(features)
-    # print(prediction.tolist())
-    # return jsonify({'obesityLevel': prediction.tolist()})
-
-    # return render_template('portal.html')
-
 
 # @app.route('/predict', methods=['GET','POST'])
 # def predict():
