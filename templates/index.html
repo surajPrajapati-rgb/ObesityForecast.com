@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="{{url_for('static', filename='home.css')}}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Anonymous+Pro&family=Londrina+Outline&family=Poppins&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="main">
+       <header>
+        <div class="logo">Logo</div>
+        <div class="nev">
+            <button type="submit" class="nav-btn" id="nav-sign">Sign-in</button>
+            <button class="nav-btn" id="nav-desh"><a href="{{ url_for('portal') }}">Dashboard</a></button>
+        </div>
+       </header>
+       
+       <div class="body-content">
+            <div class="box-1">
+                <div class="tagline">
+                    <div class="massege">
+                        <div class="wrapper">
+                            <div class="static-txt londrina-outline-regular" id="static-txt">Embark on a Journey Towards,</div>
+                            <ul class="dynamic-txts">
+                                <li><span style="font-family: cursive;">Better Health and a Brighter Future with Us Today!</span></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <!-- description-->
+                
+            </div>
+            <div class="box-2">
+                <button type="submit" class="box-2-btn .icon-right .icon-right.after">Sign-in</button>
+                <button  class="box-2-btn" id="box-2-btn2 .icon-right .icon-right.after">Get-Started</button>
+                </div>
+            </div>
+       </div> 
+    </div>
+</body>
+</html>

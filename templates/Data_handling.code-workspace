@@ -1,0 +1,27 @@
+{
+	"folders": [
+		{
+			"name": "Data_handling",
+			"path": "../../Data_handling"
+		},
+		{
+			"name": "DSA",
+			"path": "../../DSA"
+		},
+		{
+			"name": "Flask_proj",
+			"path": "../../Flask_proj"
+		},
+		{
+			"name": "MFC",
+			"path": "../../MFC"
+		},
+		{
+			"path": ".."
+		}
+	],
+	"settings": {
+		"sqltools.connections": [],
+		"liveServer.settings.multiRootWorkspaceName": "web_js"
+	}
+}

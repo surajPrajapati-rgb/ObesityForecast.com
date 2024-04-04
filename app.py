@@ -1,16 +1,27 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify,render_template
 import joblib
 
 app = Flask(__name__)
 
 model = joblib.load('Model/RandomForestClassifier.pkl')
 
-@app.route('/predict', methods=['POST'])
 
+@app.route('/', methods=['GET', 'POST'])
+def index():
+    
+    return render_template('index.html')
+
+@app.route('/portal',methods=['GET','POST'])
+def portal():
+    
+    return render_template('portal.html')
+
+
+@app.route('/predict', methods=['GET','POST'])
 def predict():
 
     data = request.json
-
+    
     features = [
         float(data['age']), 
         float(data['height']), 
@@ -26,6 +37,7 @@ def predict():
     features = [features] 
     
     prediction = model.predict(features)
+    hello=''
 
     return jsonify({'obesityLevel': prediction.tolist()})
 
