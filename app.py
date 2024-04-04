@@ -13,7 +13,6 @@ def index():
 
 @app.route('/portal',methods=['GET','POST'])
 def portal():
-    
     return render_template('portal.html')
 
 
