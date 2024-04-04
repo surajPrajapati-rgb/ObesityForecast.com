@@ -13,33 +13,67 @@ def index():
 
 @app.route('/portal',methods=['GET','POST'])
 def portal():
+    data={}
+    if request.method=="POST":
+        data = {
+            'gender': request.form['gender'],
+            'age': int(request.form['age']),
+            'height': int(request.form['height']),
+            'weight': int(request.form['weight']),
+            'family_history': request.form['family_history'],
+            'favc': request.form['favc'],
+            'fcvc': int(request.form['fcvc']),
+            'ncp': int(request.form['ncp']),
+            'caec': request.form['caec'],
+            'smoke': request.form['smoke'],
+            'ch2o': int(request.form['ch2o']),
+            'scc': request.form['scc'],
+            'faf': int(request.form['faf']),
+            'tue': int(request.form['tue']),
+            'calc': request.form['calc'],
+            'mtrans': request.form['mtrans'],
+            'nObeyesdad': request.form['nObeyesdad']
+        }
+    return render_template('portal.html', data=data)
+
+    # data = request.json
     
-    return render_template('portal.html')
+    # features = [
+    #     float(data['age']), 
+    #     float(data['height']), 
+    #     float(data['weight']),
+    #     # Convert other features similarly
+    # ]
 
 
-@app.route('/predict', methods=['GET','POST'])
-def predict():
-
-    data = request.json
+    # features = [features] 
     
-    features = [
-        float(data['age']), 
-        float(data['height']), 
-        float(data['weight']),
-        # Convert other features similarly
-    ]
+    # prediction = model.predict(features)
+    # print(prediction.tolist())
+    # return jsonify({'obesityLevel': prediction.tolist()})
 
-    # features = [1.        , 0.17021277, 0.43754268, 0.12622076, 1.        ,
-    #    1.        , 0.5       , 0.66666667, 0.66666667, 0.        ,
-    #    0.5       , 0.        , 0.        , 1.        , 0.66666667,
-    #    0.        ]
-    
-    features = [features] 
-    
-    prediction = model.predict(features)
-    hello=''
+    # return render_template('portal.html')
 
-    return jsonify({'obesityLevel': prediction.tolist()})
+
+# @app.route('/predict', methods=['GET','POST'])
+# def predict():
+
+#     data = request.json
+    
+#     features = [
+#         float(data['age']), 
+#         float(data['height']), 
+#         float(data['weight']),
+#         # Convert other features similarly
+#     ]
+
+    
+#     features = [features] 
+    
+#     prediction = model.predict(features)
+#     hello=''
+
+#     return jsonify({'obesityLevel': prediction.tolist()})
 
 if __name__ == '__main__':
     app.run(debug=True)

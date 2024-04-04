@@ -10,7 +10,7 @@
 
     <div class="container">
         <h1>Obesity Level Predictor</h1>
-        <form id="obesityForm">
+        <form id="obesityForm" method="POST">
             <!-- Add your form inputs here -->
             <label for="gender">Gender:</label>
             <select id="gender" name="gender" required>
@@ -113,6 +113,11 @@
     
             <button type="submit">Predict</button>
         </form>
+    </div>
+    <div class="data">
+        {% for key,value in data.items() %}
+            <li>{{Key}} => {{value}}</li>
+        {% endfor %}
     </div>
 </body>
 </html>
