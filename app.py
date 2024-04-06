@@ -2,13 +2,11 @@ from flask import Flask, request, jsonify,render_template
 import joblib
 
 app = Flask(__name__)
-
 model = joblib.load('Model/RandomForestClassifier.pkl')
 
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
-    
     return render_template('index.html')
 
 @app.route('/portal',methods=['GET','POST'])
