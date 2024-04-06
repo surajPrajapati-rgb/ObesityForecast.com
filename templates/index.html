@@ -8,6 +8,19 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Anonymous+Pro&family=Londrina+Outline&family=Poppins&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+            transition: background-image 1s ease-in-out;
+            height: 100vh;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    </style>
 </head>
 <body>
     <div class="main">
@@ -41,5 +54,30 @@
             </div>
        </div> 
     </div>
+
+    
+    <script>
+        // Array of image URLs
+        const images = [
+            'ObesityForecast.com/static/71941372.webp',
+            'ObesityForecast.com/static/background.jpg',
+            'ObesityForecast.com/static/istockphoto-1124272274-612x612.jpg',
+            'ObesityForecast.com/static/person-with-eating-disorder-trying-eat-fast-food_23-2149243006.avif'
+        ];
+
+        let index = 0;
+
+        function changeBackground() {
+            document.body.style.backgroundImage = `url(${images[index]})`;
+            index = (index + 1) % images.length;
+        }
+
+        // Initial call to change background
+        changeBackground();
+
+        // Set interval to change background every 5 seconds
+        setInterval(changeBackground, 1000);
+    </script>
 </body>
 </html>
+
