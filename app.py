@@ -7,6 +7,7 @@ model = joblib.load('Model/RandomForestClassifier.pkl')
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
+    #return homepage
     return render_template('index.html')
 
 @app.route('/portal',methods=['GET','POST'])
@@ -29,9 +30,9 @@ def portal():
             'faf': int(request.form['faf']),
             'tue': int(request.form['tue']),
             'calc': request.form['calc'],
-            'mtrans': request.form['mtrans'],
-            'nObeyesdad': request.form['nObeyesdad']
+            'mtrans': request.form['mtrans']
         }
+        
     return render_template('portal.html', data=data)
 
 
