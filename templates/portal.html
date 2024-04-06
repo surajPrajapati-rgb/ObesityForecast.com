@@ -15,31 +15,31 @@
             <label for="gender">Gender:</label>
             <select id="gender" name="gender" required>
                 <option value="">Select Gender</option>
-                <option value="male">Male</option>
-                <option value="female">Female</option>
+                <option value="1">Male</option>
+                <option value="0">Female</option>
             </select>
     
             <label for="age">Age:</label>
-            <input type="number" id="age" name="age" required>
+            <input type="floatformat" id="age" name="age" required>
     
             <label for="height">Height:</label>
-            <input type="number" id="height" name="height" required>
+            <input type="floatformat" id="height" name="height" required>
     
             <label for="weight">Weight:</label>
-            <input type="number" id="weight" name="weight" required>
+            <input type="floatformat" id="weight" name="weight" required>
     
             <label for="family_history">Has a family member suffered or suffers from overweight?</label>
             <select id="family_history" name="family_history" required>
                 <option value="">Select Option</option>
-                <option value="yes">Yes</option>
-                <option value="no">No</option>
+                <option value="1">Yes</option>
+                <option value="0">No</option>
             </select>
     
             <label for="favc">Do you eat high caloric food frequently?</label>
             <select id="favc" name="favc" required>
                 <option value="">Select Option</option>
-                <option value="yes">Yes</option>
-                <option value="no">No</option>
+                <option value="1">Yes</option>
+                <option value="0">No</option>
             </select>
     
             <label for="fcvc">Do you usually eat vegetables in your meals?</label>
@@ -51,17 +51,17 @@
             <label for="caec">Do you eat any food between meals?</label>
             <select id="caec" name="caec" required>
                 <option value="">Select Option</option>
-                <option value="no">No</option>
-                <option value="sometimes">Sometimes</option>
-                <option value="frequently">Frequently</option>
-                <option value="always">Always</option>
+                <option value="3">No</option>
+                <option value="2">Sometimes</option>
+                <option value="1">Frequently</option>
+                <option value="0">Always</option>
             </select>
     
             <label for="smoke">Do you smoke?</label>
             <select id="smoke" name="smoke" required>
                 <option value="">Select Option</option>
-                <option value="yes">Yes</option>
-                <option value="no">No</option>
+                <option value="1">Yes</option>
+                <option value="0">No</option>
             </select>
     
             <label for="ch2o">How much water do you drink daily?</label>
@@ -70,8 +70,8 @@
             <label for="scc">Do you monitor the calories you eat daily?</label>
             <select id="scc" name="scc" required>
                 <option value="">Select Option</option>
-                <option value="yes">Yes</option>
-                <option value="no">No</option>
+                <option value="1">Yes</option>
+                <option value="0">No</option>
             </select>
     
             <label for="faf">How often do you have physical activity?</label>
@@ -83,39 +83,28 @@
             <label for="calc">How often do you drink alcohol?</label>
             <select id="calc" name="calc" required>
                 <option value="">Select Option</option>
-                <option value="no">No</option>
-                <option value="sometimes">Sometimes</option>
-                <option value="frequently">Frequently</option>
-                <option value="always">Always</option>
+                <option value="2">No</option>
+                <option value="1">Sometimes</option>
+                <option value="0">Frequently</option>
             </select>
     
             <label for="mtrans">Which transportation do you usually use?</label>
             <select id="mtrans" name="mtrans" required>
                 <option value="">Select Option</option>
-                <option value="automobile">Automobile</option>
-                <option value="bike">Bike</option>
-                <option value="motorbike">Motorbike</option>
-                <option value="public_transportation">Public Transportation</option>
-                <option value="walking">Walking</option>
-            </select>
-    
-            <label for="nObeyesdad">Obesity Level:</label>
-            <select id="nObeyesdad" name="nObeyesdad" required>
-                <option value="">Select Obesity Level</option>
-                <option value="Insufficient Weight">Insufficient Weight</option>
-                <option value="Normal Weight">Normal Weight</option>
-                <option value="Overweight Level I">Overweight Level I</option>
-                <option value="Overweight Level II">Overweight Level II</option>
-                <option value="Obesity Type I">Obesity Type I</option>
-                <option value="Obesity Type II">Obesity Type II</option>
-                <option value="Obesity Type III">Obesity Type III</option>
+                <option value="0">Automobile</option>
+                <option value="1">Bike</option>
+                <option value="2">Motorbike</option>
+                <option value="3">Public Transportation</option>
+                <option value="4">Walking</option>
             </select>
             <button type="submit">Predict</button>
         </form>
     </div>
     <div class="data">
         {% for key,value in data.items() %}
+            {{key}} 
             <li>{{Key}} => {{value}}</li>
+            
         {% endfor %}
     </div>
 </body>

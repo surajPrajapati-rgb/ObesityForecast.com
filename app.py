@@ -16,22 +16,22 @@ def portal():
     data={}
     if request.method=="POST":
         data = {
-            'gender': request.form['gender'],
-            'age': int(request.form['age']),
-            'height': int(request.form['height']),
-            'weight': int(request.form['weight']),
-            'family_history': request.form['family_history'],
-            'favc': request.form['favc'],
+            'gender':int( request.form['gender']),
+            'age': float(request.form['age']),
+            'height': float(request.form['height']),
+            'weight': float(request.form['weight']),
+            'family_history': int(request.form['family_history']),
+            'favc': int(request.form['favc']),
             'fcvc': int(request.form['fcvc']),
             'ncp': int(request.form['ncp']),
-            'caec': request.form['caec'],
-            'smoke': request.form['smoke'],
+            'caec': int(request.form['caec']),
+            'smoke': int(request.form['smoke']),
             'ch2o': int(request.form['ch2o']),
-            'scc': request.form['scc'],
+            'scc': int(request.form['scc']),
             'faf': int(request.form['faf']),
             'tue': int(request.form['tue']),
-            'calc': request.form['calc'],
-            'mtrans': request.form['mtrans'],
+            'calc': int(request.form['calc']),
+            'mtrans': int(request.form['mtrans']),
 
         }
     return render_template('portal.html', data=data)
