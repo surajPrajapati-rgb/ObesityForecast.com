@@ -32,7 +32,7 @@ def portal():
             'tue': int(request.form['tue']),
             'calc': request.form['calc'],
             'mtrans': request.form['mtrans'],
-            'nObeyesdad': request.form['nObeyesdad']
+
         }
     return render_template('portal.html', data=data)
 
