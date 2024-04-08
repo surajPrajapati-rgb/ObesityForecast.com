@@ -9,28 +9,31 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Anonymous+Pro&family=Londrina+Outline&family=Poppins&display=swap" rel="stylesheet">
     <style>
-        body {
+        body{
+            background-image: linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.5),rgba(0,0,0,0.6));
             background-size: cover;
             background-repeat: no-repeat;
             background-position: center;
             transition: background-image 1s ease-in-out;
+            margin-top: 10vh;
             height: 100vh;
             margin: 0;
-            display: flex;
+            /*display: flex;
             justify-content: center;
-            align-items: center;
+            align-items: center;*/
         }
     </style>
 </head>
 <body>
     <div class="main">
-       <header>
-        <div class="logo">Logo</div>
-        <div class="nev">
-            <button type="submit" class="nav-btn" id="nav-sign">Sign-in</button>
-            <button class="nav-btn" id="nav-desh"><a href="{{ url_for('portal') }}">Dashboard</a></button>
-        </div>
-       </header>
+        <header>
+            <!-- <div class="logo"><img src="{{url_for('static', filename='logo.png')}}" alt="" srcset=""></div> -->
+            <div class="logo"><span>O</span><span>P</span>ridictor</div>
+            <div class="nev">
+                <button type="submit" class="nav-btn" id="nav-sign">Sign-in</button>
+                <button class="nav-btn" id="nav-desh"><a href="{{ url_for('portal') }}">Dashboard</a></button>
+            </div>
+        </header>
        
        <div class="body-content">
             <div class="box-1">
@@ -49,20 +52,19 @@
             </div>
             <div class="box-2">
                 <button type="submit" class="box-2-btn .icon-right .icon-right.after">Sign-in</button>
-                <button  class="box-2-btn" id="box-2-btn2 .icon-right .icon-right.after">Get-Started</button>
+                <button  class="box-2-btn" id="box-2-btn2 .icon-right .icon-right.after"><a href="{{url_for('portal')}}">Get-Started</a></button>
                 </div>
             </div>
        </div> 
     </div>
-
     
     <script>
         // Array of image URLs
         const images = [
-            'ObesityForecast.com/static/71941372.webp',
-            'ObesityForecast.com/static/background.jpg',
-            'ObesityForecast.com/static/istockphoto-1124272274-612x612.jpg',
-            'ObesityForecast.com/static/person-with-eating-disorder-trying-eat-fast-food_23-2149243006.avif'
+            '../static/background.jpg',
+            '../static/fit-woman.jpg',
+            '../static/istockphoto-1124272274-612x612.jpg',
+            '../static/person-with-eating-disorder-trying-eat-fast-food_23-2149243006.avif'
         ];
 
         let index = 0;
@@ -76,7 +78,7 @@
         changeBackground();
 
         // Set interval to change background every 5 seconds
-        setInterval(changeBackground, 1000);
+        setInterval(changeBackground, 5000);
     </script>
 </body>
 </html>

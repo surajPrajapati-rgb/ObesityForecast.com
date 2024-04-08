@@ -1,169 +1,182 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Obesity Level Predictor</title>
-    <style>
-        /* Add your CSS styles here */
-        /* This is just a basic example, you can customize it further */
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f4f4f4;
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Smooth Background Image Zoom Out</title>
+<style>
+    @import url('https://fonts.googleapis.com/css?family=Roboto+Slab:400');
+    @import url('https://fonts.googleapis.com/css?family=Shadows+Into+Light');
+    
+    
+    ::selection {
+      color: #fff;
+      background: #9FBE5A;
+    }
+    
+    body {
+      width: 100vw;
+      height: 100%;
+      padding-bottom: 50px;
+      overflow-x: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(to bottom, #16a085, #f4d03f) center / cover no-repeat;
+    }
+    
+    h1 {
+      margin-bottom: 75px;
+      padding: 0 20vw;
+      font: 400 56px 'Roboto Slab', serif;
+      font-size: 56px;
+      text-align: center;
+      color: #fff;
+    }
+    
+    .form__contact {
+      max-width: 600px;
+      margin: 0 auto;
+      border-left: 30px solid white;
+      border-image: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz48IURPQ1RZUEUgc3ZnIFBVQkxJQyAiLS8vVzNDLy9EVEQgU1ZHIDEuMS8vRU4iICJodHRwOi8vd3d3LnczLm9yZy9HcmFwaGljcy9TVkcvMS4xL0RURC9zdmcxMS5kdGQiPjxzdmcgdmVyc2lvbj0iMS4xIiBpZD0iTGF5ZXJfMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgeD0iMHB4IiB5PSIwcHgiIHdpZHRoPSI0MS44NnB4IiBoZWlnaHQ9IjUyLjMyNnB4IiB2aWV3Qm94PSIwIDAgNDEuODYgNTIuMzI2IiBlbmFibGUtYmFja2dyb3VuZD0ibmV3IDAgMCA0MS44NiA1Mi4zMjYiIHhtbDpzcGFjZT0icHJlc2VydmUiPjxwYXRoIGZpbGw9IiNGRkZGRkYiIGQ9Ik0wLDB2MjUuMTYzaDcuMDk3YzAuNTAxLTQuOTg5LDQuNzEyLTguODg0LDkuODMzLTguODg0YzUuNDU4LDAsOS44ODQsNC40MjUsOS44ODQsOS44ODRzLTQuNDI1LDkuODg0LTkuODg0LDkuODg0Yy01LjEyMSwwLTkuMzMyLTMuODk1LTkuODMzLTguODg0SDB2MjUuMTYzaDQxLjg2VjBIMHoiLz48L3N2Zz4=) 5% 100% repeat;
+      border-image-width: 0px 0px 0px 30px;
+      transform: translateY(100%);
+      animation: init 1s ease-in-out forwards;
+    
+      fieldset {
+        position: relative;
+        margin: 0;
+        padding: 30px 30px 40px 80px;
+        border: none;
+        border-radius: 0 20px 20px 0;
+        font: 24px 'Shadows Into Light', cursive;
+        background: #fff linear-gradient(rgba(0,0,0,.1) 1px, transparent 0) 0 20px / 100% 40px;
+    
+        &:after {
+          position: absolute;
+          top: 0;
+          left: 50px;
+          content: '';
+          height: 100%;
+          width: 1px;
+          border-left: double #E08183;
         }
-        .container {
-            max-width: 800px;
-            margin: 20px auto;
-            padding: 20px;
-            background-color: #fff;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      }
+    
+      p {
+        margin: 0 0 40px 0;
+        line-height: 40px;
+        color: #333;
+      }
+    
+      span {
+        position: relative;
+        line-height: 40px;
+      }
+    
+      button {
+        margin-top: 40px;
+        float: right;
+        border: none;
+        font-family: 'Shadows Into Light', cursive;
+        color: #E08183;
+        background: transparent;
+        cursor: pointer;
+        transition: transform 0.25s ease;
+    
+        &:hover {
+          transform: translateX(10px);
         }
-        h1 {
-            text-align: center;
+      }
+    }
+    
+    .form__field {
+      display: inline;
+      color: #7DB665;
+      outline: none;
+    
+      &:empty {
+        display: inline-block;
+        color: #DDD;
+      }
+    
+      &:empty,
+      &:empty:focus {
+        &:before {
+          content: attr(data-placeholder);
         }
-        form {
-            margin-top: 20px;
-        }
-        label {
-            display: block;
-            margin-bottom: 5px;
-            font-weight: bold;
-        }
-        input, select {
-            width: 100%;
-            padding: 8px;
-            margin-bottom: 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            box-sizing: border-box;
-        }
-        button {
-            width: 100%;
-            padding: 10px;
-            background-color: #007bff;
-            color: #fff;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-        button:hover {
-            background-color: #0056b3;
-        }
-    </style>
+      }
+    }
+    
+    svg {
+      display: none;
+    }
+    
+    @keyframes init {
+      75% {
+        transform: translateY(-20px);
+      }
+      100% {
+        transform: translateY(0);
+      }
+    }
+    
+    @keyframes do-blur {
+      0% {
+        filter: url(#blur4);
+      }
+    
+      25% {
+        filter: url(#blur3);
+      }
+    
+      50% {
+        filter: url(#blur2);
+      }
+    
+      75% {
+        filter: url(#blur1);
+      }
+    
+      100% {
+        filter: url(#blur0);
+      }
+    }
+</style>
 </head>
 <body>
-
-<div class="container">
-    <h1>Obesity Level Predictor</h1>
-    <form id="obesityForm">
-        <!-- Add your form inputs here -->
-        <label for="gender">Gender:</label>
-        <select id="gender" name="gender" required>
-            <option value="">Select Gender</option>
-            <option value="male">Male</option>
-            <option value="female">Female</option>
-        </select>
-
-        <label for="age">Age:</label>
-        <input type="number" id="age" name="age" required>
-
-        <label for="height">Height:</label>
-        <input type="number" id="height" name="height" required>
-
-        <label for="weight">Weight:</label>
-        <input type="number" id="weight" name="weight" required>
-
-        <label for="family_history">Has a family member suffered or suffers from overweight?</label>
-        <select id="family_history" name="family_history" required>
-            <option value="">Select Option</option>
-            <option value="yes">Yes</option>
-            <option value="no">No</option>
-        </select>
-
-        <label for="favc">Do you eat high caloric food frequently?</label>
-        <select id="favc" name="favc" required>
-            <option value="">Select Option</option>
-            <option value="yes">Yes</option>
-            <option value="no">No</option>
-        </select>
-
-        <label for="fcvc">Do you usually eat vegetables in your meals?</label>
-        <input type="number" id="fcvc" name="fcvc" required>
-
-        <label for="ncp">How many main meals do you have daily?</label>
-        <input type="number" id="ncp" name="ncp" required>
-
-        <label for="caec">Do you eat any food between meals?</label>
-        <select id="caec" name="caec" required>
-            <option value="">Select Option</option>
-            <option value="no">No</option>
-            <option value="sometimes">Sometimes</option>
-            <option value="frequently">Frequently</option>
-            <option value="always">Always</option>
-        </select>
-
-        <label for="smoke">Do you smoke?</label>
-        <select id="smoke" name="smoke" required>
-            <option value="">Select Option</option>
-            <option value="yes">Yes</option>
-            <option value="no">No</option>
-        </select>
-
-        <label for="ch2o">How much water do you drink daily?</label>
-        <input type="number" id="ch2o" name="ch2o" required>
-
-        <label for="scc">Do you monitor the calories you eat daily?</label>
-        <select id="scc" name="scc" required>
-            <option value="">Select Option</option>
-            <option value="yes">Yes</option>
-            <option value="no">No</option>
-        </select>
-
-        <label for="faf">How often do you have physical activity?</label>
-        <input type="number" id="faf" name="faf" required>
-
-        <label for="tue">How much time do you use technological devices such as cell phone, videogames, television, computer and others?</label>
-        <input type="number" id="tue" name="tue" required>
-
-        <label for="calc">How often do you drink alcohol?</label>
-        <select id="calc" name="calc" required>
-            <option value="">Select Option</option>
-            <option value="no">No</option>
-            <option value="sometimes">Sometimes</option>
-            <option value="frequently">Frequently</option>
-            <option value="always">Always</option>
-        </select>
-
-        <label for="mtrans">Which transportation do you usually use?</label>
-        <select id="mtrans" name="mtrans" required>
-            <option value="">Select Option</option>
-            <option value="automobile">Automobile</option>
-            <option value="bike">Bike</option>
-            <option value="motorbike">Motorbike</option>
-            <option value="public_transportation">Public Transportation</option>
-            <option value="walking">Walking</option>
-        </select>
-
-        <label for="nObeyesdad">Obesity Level:</label>
-        <select id="nObeyesdad" name="nObeyesdad" required>
-            <option value="">Select Obesity Level</option>
-            <option value="Insufficient Weight">Insufficient Weight</option>
-            <option value="Normal Weight">Normal Weight</option>
-            <option value="Overweight Level I">Overweight Level I</option>
-            <option value="Overweight Level II">Overweight Level II</option>
-            <option value="Obesity Type I">Obesity Type I</option>
-            <option value="Obesity Type II">Obesity Type II</option>
-            <option value="Obesity Type III">Obesity Type III</option>
-        </select>
-
-        <button type="submit">Predict</button>
-    </form>
-</div>
-
-
+    <div class="wrapper">
+        <h1>Letter-like form with inline fields</h1>
+        
+        <form class="form__contact" action="">
+          <fieldset>
+            <p>Hey, Stranger!</p>
+            <p>My name is <span class="form__field field--name" data-placeholder="your name" tabindex="1" contenteditable></span> and I'm writting tou you since I'm interested in <span class="form__field field--message" data-placeholder="your message" tabindex="2" contenteditable></span>.</p>
+            <p>This is my <span class="form__field field--email" data-placeholder="email address" tabindex="3" contenteditable></span>.</p>
+            <p>Hope to get in touch soon. Cheers!</p>
+            <button type="submit" class="button button--xlarge" tabindex="4">Send message &#187;</button>
+          </fieldset>
+        </form>
+      </div>
+      
+      <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve">
+        <defs>
+          <filter id="blur0">
+            <feGaussianBlur in="SourceGraphic" stdDeviation="0 0" />
+          </filter>
+          <filter id="blur1">
+            <feGaussianBlur in="SourceGraphic" stdDeviation="0 5" />
+          </filter>
+          <filter id="blur2">
+            <feGaussianBlur in="SourceGraphic" stdDeviation="0 10" />
+          </filter>
+          <filter id="blur3">
+            <feGaussianBlur in="SourceGraphic" stdDeviation="0 15" />
+          </filter>
+          <filter id="blur4">
+            <feGaussianBlur in="SourceGraphic" stdDeviation="0 20" />
+          </filter>
+        </defs>
+      </svg>      
 </body>
 </html>
-

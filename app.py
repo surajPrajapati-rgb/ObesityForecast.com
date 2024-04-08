@@ -1,7 +1,7 @@
 from flask import Flask, request, jsonify,render_template
 import joblib
 
-app = Flask(__name__)
+app = Flask(__name__,static_folder='static')
 
 model = joblib.load('Model/RandomForestClassifier.pkl')
 
@@ -17,7 +17,7 @@ def portal():
     if request.method=="POST":
         data = {
             'gender':int( request.form['gender']),
-            'age': float(request.form['age']),
+            'age': (request.form['age']),
             'height': float(request.form['height']),
             'weight': float(request.form['weight']),
             'family_history': int(request.form['family_history']),
@@ -35,27 +35,6 @@ def portal():
 
         }
     return render_template('portal.html', data=data)
-
-
-# @app.route('/predict', methods=['GET','POST'])
-# def predict():
-
-#     data = request.json
-    
-#     features = [
-#         float(data['age']), 
-#         float(data['height']), 
-#         float(data['weight']),
-#         # Convert other features similarly
-#     ]
-
-    
-#     features = [features] 
-    
-#     prediction = model.predict(features)
-#     hello=''
-
-#     return jsonify({'obesityLevel': prediction.tolist()})
 
 if __name__ == '__main__':
     app.run(debug=True)
