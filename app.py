@@ -2,6 +2,7 @@ from flask import Flask, request, jsonify,render_template
 import joblib
 
 app = Flask(__name__,static_folder='static')
+
 model = joblib.load('Model/RandomForestClassifier.pkl')
 
 
@@ -30,7 +31,6 @@ def portal():
             'tue': int(request.form['tue']),
             'calc': int(request.form['calc']),
             'mtrans': int(request.form['mtrans']),
-
         }
         
     return render_template('portal.html', data=data)
