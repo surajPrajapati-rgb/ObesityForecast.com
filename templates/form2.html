@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        html {
+            -webkit-font-smoothing: antialiased;
+        }
+
+        body {
+            font-family: 'Titillium Web', sans-serif;
+            font-size: 1em;
+        }
+
+        .block {
+            padding: .75em 1em;
+            appearance: none;
+            outline: none;
+            line-height: normal;
+            border-radius: 0;
+            border: none;
+            background: none;
+            display: block;
+        }
+
+        .label {
+            font-weight: bold;
+            color: #fff;
+            padding-top: 0;
+            padding-left: 0;
+            letter-spacing: .025em;
+            font-size: 1.125em;
+            line-height: 1.25;
+            position: relative;
+            z-index: 100;
+        }
+
+        .label.required:after {
+            content: '\0020*';
+            color: #E8474C;
+            font-weight: normal;
+            font-size: .75em;
+            vertical-align: top;
+        }
+
+        .input {
+            font: inherit;
+            line-height: normal;
+            width: 100%;
+            box-sizing: border-box;
+            background: #222;
+            color: white;
+            position: relative;
+        }
+
+        .button {
+            padding: .75em 2em;
+            appearance: none;
+            outline: none;
+            line-height: normal;
+            border-radius: 0;
+            border: none;
+            background: #E8474C;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .form {
+            max-width: 40em;
+            margin: 0 auto;
+            position: relative;
+            display: flex;
+            flex-flow: row wrap;
+            justify-content: space-between;
+            align-items: flex-end;
+        }
+
+        .field {
+            width: 100%;
+            margin: 0 0 1.5em 0;
+        }
+
+        .field.half {
+            width: calc(50% - 1px);
+        }
+
+        .checkboxes,
+        .options {
+            padding: 0;
+            margin: 0;
+            list-style-type: none;
+            overflow: hidden;
+        }
+
+        .checkbox,
+        .option {
+            float: left;
+            margin: 1px;
+        }
+
+        .checkbox-input,
+        .option-input {
+            display: none;
+        }
+
+        .checkbox-label,
+        .option-label {
+            font: inherit;
+            line-height: normal;
+            box-sizing: border-box;
+            background: #222;
+            color: white;
+            position: relative;
+            cursor: pointer;
+            padding: .5em;
+            border-radius: 2px;
+        }
+
+        .checkbox-input:checked + .checkbox-label,
+        .option-input:checked + .option-label {
+            background: #E8474C;
+        }
+    </style>
+</head>
+<body>
+    <form class="form" action="">
+        <p class="field required">
+            <label class="label required" for="name">Full name</label>
+            <input class="text-input" id="name" type="text" name="name" required="required" value="Use Tab">
+        </p>
+        <p class="field required half">
+            <label class="label" for="email">E-mail</label>
+            <input class="text-input" id="email" type="email" name="email" required="required">
+        </p>
+        <p class="field half">
+            <label class="label" for="phone">Phone</label>
+            <input class="text-input" id="phone" type="phone" name="phone">
+        </p>
+        <p class="field half required error">
+            <label class="label" for="login">Login</label>
+            <input class="text-input" id="login" type="text" name="login" required="required" value="mican">
+        </p>
+        <p class="field half required">
+            <label class="label" for="password">Password</label>
+            <input class="text-input" id="password" type="password" name="password" required="required">
+        </p>
+        <div class="field">
+            <label class="label">Sport?</label>
+            <ul class="checkboxes">
+                <li class="checkbox">
+                    <input class="checkbox-input" id="choice-0" type="checkbox" name="choice" value="0">
+                    <label class="checkbox-label" for="choice-0">Football</label>
+                </li>
+                <li class="checkbox">
+                    <input class="checkbox-input" id="choice-1" type="checkbox" name="choice" value="1">
+                    <label class="checkbox-label" for="choice-1">Basketball</label>
+                </li>
+                <li class="checkbox">
+                    <input class="checkbox-input" id="choice-2" type="checkbox" name="choice" value="2">
+                    <label class="checkbox-label" for="choice-2">Volleyball</label>
+                </li>
+                <li class="checkbox">
+                    <input class="checkbox-input" id="choice-3" type="checkbox" name="choice" value="3">
+                    <label class="checkbox-label" for="choice-3">Golf</label>
+                </li>
+                <li class="checkbox">
+                    <input class="checkbox-input" id="choice-4" type="checkbox" name="choice" value="4">
+                    <label class="checkbox-label" for="choice-4">Swimming</label>
+                </li>
+            </ul>
+        </div>
+        <div class="field">
+            <label class="label">Favourite JS framework</label>
+            <ul class="options">
+                <li class="option">
+                    <input class="option-input" id="option-0" type="radio" name="option" value="0">
+                    <label class="option-label" for="option-0">React</label>
+                </li>
+                <li class="option">
+                    <input class="option-input" id="option-1" type="radio" name="option" value="1">
+                    <label class="option-label" for="option-1">Vue</label>
+                </li>
+                <li class="option">
+                    <input class="option-input" id="option-2" type="radio" name="option" value="2">
+                    <label class="option-label" for="option-2">Angular</label>
+                </li>
+                <li class="option">
+                    <input class="option-input" id="option-3" type="radio" name="option" value="3">
+                    <label class="option-label" for="option-3">Riot</label>
+                </li>
+                <li class="option">
+                    <input class="option-input" id="option-4" type="radio" name="option" value="4">
+                    <label class="option-label" for="option-4">Polymer</label>
+                </li>
+                <li class="option">
+                    <input class="option-input" id="option-5" type="radio" name="option" value="5">
+                    <label class="option-label" for="option-5">Ember</label>
+                </li>
+                <li class="option">
+                    <input class="option-input" id="option-6" type="radio" name="option" value="6">
+                    <label class="option-label" for="option-6">Meteor</label>
+                </li>
+                <li class="option">
+                    <input class="option-input" id="option-7" type="radio" name="option" value="7">
+                    <label class="option-label" for="option-7">Knockout</label>
+                </li>
+            </ul>
+        </div>
+        <p class="field">
+            <label class="label" for="about">About</label>
+            <textarea class="textarea" id="about" cols="50" rows="4" name="about"></textarea>
+        </p>
+        <p class="field half">
+            <label class="label" for="select">Position</label>
+            <select class="select" id="select" name="select">
+                <option value="" selected="selected"></option>
+                <option value="ceo">CEO</option>
+                <option value="front-end">Front-end developer</option>
+                <option value="back-end">Back-end developer</option>
+            </select>
+        </p>
+        <p class="field half">
+            <input class="button" type="submit" value="Send">
+        </p>
+    </form>
+</body>
+</html>

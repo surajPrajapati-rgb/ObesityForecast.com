@@ -11,8 +11,7 @@
     background-position: center;
     transition: background-image 1s ease-in-out;
     height: 100vh;
-    width: 100vw;
-    margin: 0;
+
 }
 a{
   text-decoration: none;
@@ -101,7 +100,7 @@ header{
       background:rgba(0,0,0,0.8);
       border-left: 2px solid #FC6D6D;
       /* Change the animation duration to control typing and deleting speed */
-      animation: typing 4s steps(20) forwards, deleting 4s steps(20) 3s infinite; /* Change 3s to desired duration */
+      animation: typing 4s steps(25) forwards, deleting 4s steps(25) 3s infinite; /* Change 3s to desired duration */
   }
   
   @keyframes typing {

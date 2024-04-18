@@ -32,9 +32,8 @@ def portal():
             'tue': int(request.form['tue']),
             'calc': int(request.form['calc']),
             'mtrans': int(request.form['mtrans']),
-
         }
-    return render_template('portal.html', data=data)
+    return render_template('form.html', data=data)
 
 if __name__ == '__main__':
     app.run(debug=True)
