@@ -1,39 +1,280 @@
-from flask import Flask, request, jsonify,render_template
+from flask import Flask, request, jsonify,render_template,session,url_for,redirect,make_response
 import joblib
+import datetime
+import numpy as np
+from joblib import load
+import plotly.graph_objects as go
+import requests
+from authlib.integrations.requests_client import OAuth2Session
+from authlib.integrations.flask_client import OAuth
+import os
+from flask_mail import Mail, Message
+from email.mime.image import MIMEImage
+import warnings
 
+# -------------------------------------------------------------Globle-------------------------------------------
+# current date
+x = datetime.datetime.now()
 app = Flask(__name__,static_folder='static')
-
 model = joblib.load('Model/RandomForestClassifier.pkl')
+user_email_lst=[]
+user_name_lst=[]
+NObeyesdad_labels = {
+                    0: 'Underweight',
+                    1: 'Normal Weight',
+                    2: 'Obesity Type I',
+                    3: 'Obesity Type II',
+                    4: 'Obesity Type III',
+                    5: 'Overweight Level I',
+                    6: 'Overweight Level II'}
+def user_bmi(h,w):
+    return w/(h**2)
+    
+# user data
+def insert_data(email,name):
+    if email not in user_email_lst:
+        user_email_lst.append(email)
+        user_name_lst.append(name)
+    print(user_email_lst,user_name_lst)
 
+#----------------------------------------------------------Oauthentication---------------------------------------------------------------
+app.secret_key = os.environ.get('SECRET_KEY')
+app.config['PERMANENT_SESSION_LIFETIME'] = 3600*24*7
+
+oauth = OAuth(app)
+app.secret_key = 'your_secret_key_here'  # Set the secret key
+client_id = '630606159234-p9u62ohjjdoqsngd5pgd7ob2salaivio.apps.googleusercontent.com'
+client_secret = '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'
+redirect_uri = 'http://localhost:5000/loginnew'
+
+google = oauth.register(
+    name='google',
+    client_id='630606159234-p9u62ohjjdoqsngd5pgd7ob2salaivio.apps.googleusercontent.com',
+    client_secret='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',
+    authorize_url='https://accounts.google.com/o/oauth2/auth',
+    authorize_params=None,
+    access_token_url='https://accounts.google.com/o/oauth2/token',
+    access_token_params=None,
+    refresh_token_url=None,
+    refresh_token_params=None,
+    redirect_uri='http://127.0.0.1:5000/authorize',
+    client_kwargs={'scope': 'openid email profile'},
+    jwks_uri='https://www.googleapis.com/oauth2/v3/certs',
+)
+
+# login
+@app.route('/login')
+def login():
+    redirect_uri = url_for('authorize', _external=True)
+    return google.authorize_redirect(redirect_uri)
+
+# authorize
+@app.route('/authorize')
+def authorize():
+    token = google.authorize_access_token()
+    session['token'] = token
+    return redirect(url_for('profile'))
+
+# profile
+@app.route('/profile')
+def profile():
+    token = session.get('token')
+    print(token)
+    if token is None:
+        return redirect(url_for('login'))
+    
+    client_id='630606159234-p9u62ohjjdoqsngd5pgd7ob2salaivio.apps.googleusercontent.com',
+    # Create an OAuth2Session instance with the access token
+    oauth = OAuth2Session(client_id, token=token)
+    # Make a request to the userinfo endpoint with the access token
+    user_info = oauth.get('https://www.googleapis.com/oauth2/v3/userinfo').json()
+    # user_about = search_user_by_email(user_info['email'])
+    
+    # user data
+    insert_data(user_info['email'],user_info['name'])
+
+    print(user_info['email'],user_info['name'])
+    
+    # response = make_response('Cookie set')
+    # response.set_cookie('my_cookie', value='example_value', max_age= 3600 * 24)  # Expires after 1 hour (3600 seconds)
+    session['user_info'] = user_info
+    return render_template('index.html', user_info=user_info)  # Return the profile template with user_info
+
+# logout
+@app.route('/logout')
+def logout():
+    session.pop('user_info', None)
+    return render_template("index.html")
+
+# -----------------------------------------------------------------------Mail------------------------------------------------------------
+
+# Configuration for Flask-Mail
+app.config["MAIL_SERVER"] = 'smtp.gmail.com'
+app.config["MAIL_PORT"] = 465
+app.config["MAIL_USERNAME"] = 'malviyaji6281@gmail.com'  # Update with your Gmail email
+app.config['MAIL_PASSWORD'] = 'uswo thvi ogxi kkbi'  # Update with your Gmail password
+app.config['MAIL_USE_TLS'] = False
+app.config['MAIL_USE_SSL'] = True
+
+mail = Mail(app)
+
+def send_otp(email,h,w,predicted_classes):
+    global user_name_lst
+    # Compose the email message
+    msg = Message(subject='Your Health Report', sender=('Rajat Malviya', app.config["MAIL_USERNAME"]), recipients=[email])
+    msg.body = f"""
+    Dear {user_name_lst[-1]} ,
+    
+    We wanted to provide you with an update on your health status based on the data you have provided to OPridictor. Your current BMI is {round(user_bmi(h,w),2)}, indicating {predicted_classes}.
+    It is important to continue monitoring your health and making positive lifestyle changes to improve your overall well-being.
+    
+    Based on your health status, we have curated a personalized food suggestion template to help you make healthier choices. Please find the below:
+    
+    Remember, small changes in your diet and lifestyle can have a big impact on your health. If you have any questions or need further assistance, feel free to reach out to us.
+    
+    Stay healthy!
+    
+    Best regards,
+    The OPridictor Team"""
+    
+    try:
+        # Send the email
+        mail.send(msg)
+        return True
+    except Exception as e:
+        print("Error sending email:", e)
+        return False
+
+
+# Secret key for session management
+app.secret_key = 'your_secret_key'
+@app.route('/send_otp', methods=["POST"])
+def send_otp_route():
+    # Get the email from the form
+    email = user_email_lst[-1]
+    data = session.get('data', {})
+    predicted_classes=session.get('predicted_classes','')
+    # Send OTP to the provided email
+    if send_otp(email,data['height'],data['weight'],predicted_classes):
+        # OTP sent successfully, store the email in session for verification
+        session['email'] = email
+        return render_template('index.html')
+    else:
+        return "Failed to send email. Please try again later."
+    
+
+#--------------------------------------------------------------------------graph---------------------------------------------------------
+def predict_graph(X_test):
+    X_test = np.array(X_test)
+        
+    with warnings.catch_warnings():
+        warnings.simplefilter("ignore")
+        X_test = X_test.reshape(1, -1)
+        logistic_regression, scaler = load('logistic_regression.joblib')
+
+        X_test_scaled = scaler.transform(X_test)
+        predicted_probabilities = logistic_regression.predict_proba(X_test_scaled)
+        predicted_classes = logistic_regression.predict(X_test_scaled)
+        
+        
+
+        label_names = logistic_regression.classes_  # Get the label names
+        # print(label_names)
+        for i, (label, probabilities) in enumerate(zip(predicted_classes, predicted_probabilities)):
+            label_name = label_names[label]  # Get the corresponding label name
+            print(f"Instance {i + 1}: Predicted Class = {label_name}, Probabilities = {probabilities}")
+
+        fig = go.Figure(data=[go.Pie(labels=list(NObeyesdad_labels.values()), values=probabilities, hole=0.4)])
+        print(predicted_classes)
+        print(label_names)
+        fig.update_layout(title='Predicted Probabilities for Each Class')
+        # Convert the Plotly figure to HTML
+        plot_div = fig.to_html(full_html=False)
+        
+        
+        # health 
+        nutrient_requirements = {
+            "Protein": 15,
+            "Carbohydrates": 50,
+            "Fats": 30,
+            "Vitamins": 2,
+            "Minerals": 3,
+            "Water": 70,
+           "Fiber": 25}
+        labels = list(nutrient_requirements.keys())
+        values = list(nutrient_requirements.values())
+
+        fig = go.Figure(data=[go.Pie(labels=labels, values=values, hole=0.3)])
+
+        fig.update_traces(hoverinfo='label+percent', textinfo='percent', textfont_size=11)
+
+        fig.update_layout(title_text="Nutrient Requirements for Helthy Body",
+                        scene=dict(
+                            xaxis=dict(showticklabels=False),
+                            yaxis=dict(showticklabels=False),
+                            zaxis=dict(showticklabels=False),
+                        ))
+        # Convert the Plotly figure to HTML
+        helth = fig.to_html(full_html=False)
+    return plot_div,NObeyesdad_labels[label_name],helth
+
+
+# --------------------------------------------------------
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
-    
+        
     return render_template('index.html')
 
 @app.route('/portal',methods=['GET','POST'])
 def portal():
     data={}
+    send_email=''
     if request.method=="POST":
-        data = {
-            'gender':int( request.form['gender']),
-            'age': (request.form['age']),
-            'height': float(request.form['height']),
-            'weight': float(request.form['weight']),
-            'family_history': int(request.form['family_history']),
-            'favc': int(request.form['favc']),
-            'fcvc': int(request.form['fcvc']),
-            'ncp': int(request.form['ncp']),
-            'caec': int(request.form['caec']),
-            'smoke': int(request.form['smoke']),
-            'ch2o': int(request.form['ch2o']),
-            'scc': int(request.form['scc']),
-            'faf': int(request.form['faf']),
-            'tue': int(request.form['tue']),
-            'calc': int(request.form['calc']),
-            'mtrans': int(request.form['mtrans']),
-        }
-    return render_template('form.html', data=data)
+        form_name=request.form['user_email']
+        
+        if form_name=='user_data':
+            age=int(request.form['age'].split('-')[0])
+            current_date=int('20'+ x.strftime("%x").split('/')[-1])
+            print(age)
+            print(current_date)
+            data = {
+                'gender':int( request.form['gender']),
+                'age': (current_date-age),
+                'height': float(request.form['height'])/100,
+                'weight': float(request.form['weight']),
+                'family_history': int(request.form['family_history']),
+                'favc': int(request.form['favc']),
+                'fcvc': int(request.form['fcvc']),
+                'ncp': int(request.form['ncp']),
+                'caec': int(request.form['caec']),
+                'smoke': int(request.form['smoke']),
+                'ch2o': int(request.form['ch2o']),
+                'scc': int(request.form['scc']),
+                'faf': int(request.form['faf']),
+                'tue': int(request.form['tue']),
+                'calc': int(request.form['calc']),
+                'mtrans': int(request.form['mtrans']),
+            }
+            
+            # Assuming 'data' is a dictionary containing input data for prediction
+            plot_div,predicted_classes,helth = predict_graph([data[key] for key in data.keys()])
+            
+            # Store data, plot_div, and predicted_classes in session
+            session['data'] = data
+            session['predicted_classes']=predicted_classes
+            
+        if form_name=='send_email':
+            print(user_email_lst[-1])
+            send_email(user_email_lst[-1],data['height'],data['weight'],predicted_classes)
+            
+        return render_template('user.html',data=data,plot_div=plot_div,predicted_classes=predicted_classes,helth=helth)
+    return render_template('form.html')
+
+@app.route('/user',methods=['GET','POST'])
+def user():
+    
+    return render_template('user.html')
 
 if __name__ == '__main__':
     app.run(debug=True)

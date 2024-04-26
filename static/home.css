@@ -31,6 +31,22 @@ header{
     margin-bottom: 8vh;
 }
 
+.nev{
+  display: flex;
+  align-items: center;
+  justify-self: center;
+}
+.user-img{
+  margin-left:10px;
+  border: 2px solid #ff9813;
+  border-radius: 90px;
+  height: 7vh;
+  overflow: hidden;
+}
+.user-img img{
+  width: 100%;
+  height: 100%;
+}
 
 .nav-btn{
     height: 90%;
@@ -38,15 +54,28 @@ header{
     font-size: 1.1rem;
     padding: 10px 15px;    
     background-color: transparent;
-    border: 1px solid black;
+    border: 1px solid #ff9813;
+    color: #fff;
+    margin-left:10px;
+    border-radius: 4px;
+}
+.nav-btn:hover{
+  background-color: #ff9813;
+}
+.nav-btn a span{
+  height: 90%;
+    width: max-content;
+    font-size: 1.1rem;
+    padding: 10px 15px;    
+    background-color: transparent;
     color: #fff;
     margin-left:10px;
 }
 
-#nav-desh{
+/* #nav-desh{
     background-color: #c2c2c2;
     color: black;
-}
+} */
 .logo{
   font-family: cursive;
   font-size: 1.3rem;

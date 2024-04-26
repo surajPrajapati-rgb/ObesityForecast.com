@@ -4,6 +4,9 @@
     box-sizing: border-box;
     font-family: cursive;
 }
+a{
+    text-decoration: none;
+}
 html {
     -webkit-font-smoothing: antialiased;
 }
@@ -362,8 +365,90 @@ h4{
     border: 1px solid #bd8200;
     cursor: pointer;
     display: inline-block;
+    border-radius: 4px;
 }
 
 .sbm-btn:active{
     background-color: #bd8200;
+}
+/* header */
+.nav-btn{
+    height: 90%;
+    width: max-content;
+    font-size: 1.1rem;
+    padding: 10px 15px;    
+    background-color: transparent;
+    border: 1px solid #ff9813;
+    color: #fff;
+    margin-left:10px;
+    border-radius: 4px;
+}
+.nav-btn:hover{
+  background-color: #ff9813;
+}
+.nav-btn a span{
+  height: 90%;
+    width: max-content;
+    font-size: 1.1rem;
+    padding: 10px 15px;    
+    background-color: transparent;
+    color: #fff;
+    margin-left:10px;
+}
+.nev{
+    display: flex;
+    align-items: center;
+    justify-self: center;
+  }
+  .user-img{
+    margin-left:10px;
+    border: 2px solid #ff9813;
+    border-radius: 90px;
+    height: 7vh;
+    overflow: hidden;
+  }
+  .user-img img{
+    width: 100%;
+    height: 100%;
+  }
+  
+  .nav-btn{
+      height: 90%;
+      width: max-content;
+      font-size: 1.1rem;
+      padding: 10px 15px;    
+      background-color: transparent;
+      border: 1px solid #ff9813;
+      color: #fff;
+      margin-left:10px;
+      border-radius: 4px;
+    }
+  .nav-btn:hover{
+    background-color: #ff9813;
+}
+
+/* form glass */
+.glass-template {
+    background-color: rgba(255, 255, 255, 0.3); /* Transparent white */
+    backdrop-filter: blur(10px); /* Blur effect */
+}
+body{
+    background-image: url('./gym4.jpg');
+    background-repeat: no-repeat;
+    background-size: cover; 
+    background-position: center;
+    /* width: 100vw; */
+    /* height: 100vh; */
+    overflow-y: scroll;
+    backdrop-filter: blur(5px);
+}
+input{
+    background-color: #e8e8e8;
+}
+.data{
+    font-size: 1.5rem;
+    text-align: start;
+    font-weight: bold;
+    /* border: 1px solid black; */
+    margin-right: 62%;
 }

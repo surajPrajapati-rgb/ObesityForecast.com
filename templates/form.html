@@ -9,10 +9,33 @@
 <body>
     <div>
         <header>
-            <!-- <div class="logo"><img src="{{url_for('static', filename='logo.png')}}" alt="" srcset=""></div> -->
             <div class="logo"><span>O</span><span>P</span>ridictor</div>
+            <div class="nev">
+                {% if not session['user_info'] %}
+                    <div class="flex-center login nav-btn" id="nav-sign"><a href="/login"><span>Sign-in</span></a></div>
+                {% else %}
+                    <div class="login nav-btn"><a href="logout"><span>Logout</span></a></div>
+                {% endif %}
+                <!-- diffrent part -->
+                {% if session['user_info'] %}
+                    <div class="user-img">
+                        <a href="/user" class="flex-center"><img src="{{ session['user_info']['picture'] }}" alt="User Picture"></a>
+                    </div>
+                {% else %}
+                <div class="user-img">
+                    <a href="/user" class="flex-center"><img src="https://cdn1.iconfinder.com/data/icons/google-s-logo/150/Google_Icons-09-512.png" alt="User Picture"></a>
+                </div>
+                {% endif %}
+
+                <!-- <button type="submit" class="nav-btn" id="nav-sign">Sign-in</button> -->
+                <!-- <button class="nav-btn" id="nav-desh"><a href="{{ url_for('portal') }}">Dashboard</a></button> -->
+            </div>
         </header>
-        <form class="main" method="POST">
+        
+        <form class="main glass-template" method="POST">
+            <div class="data">
+                Your data collection form
+            </div>
             <div class="row-1">
                 <div class="col-half r1-c1">
                     <h4>Gender</h4>
@@ -33,7 +56,7 @@
             <div class="row-2 all">
                 <div class="height">
                     <h4>Height:😉</h4>
-                    <input type="floatformat" id="height" name="height" placeholder="In Meter" required>
+                    <input type="floatformat" id="height" name="height" placeholder="In cm" required>
                 </div>
                 <div class="weight">
                     <h4>Weight:😬</h4>
@@ -85,7 +108,7 @@
 
             <div class="row-4 all">
                 <div class="all">
-                    <label for="fcvc">How many times you usually eat vegetables🫑 in your meals?</label>
+                    <label for="fcvc">How many times you usually eat vegetables🫑 in a day?</label>
                     <input type="number" id="fcvc" name="fcvc" required>
                 </div>
                 <div class="all">
@@ -178,15 +201,9 @@
                     </ul>
                 </div>
             </div>
-            <button type="submit" class="sbm-btn">Predict</button>
+            <button type="submit" class="sbm-btn" value="user_data" name="user_email">Predict</button>
         </form>
     </div>
-    <div class="data">
-        {% for key,value in data.items() %}
-            {{key}} 
-            <li>{{Key}} => {{value}}</li>
-            
-        {% endfor %}
-    </div>
+    
 </body>
 </html>
