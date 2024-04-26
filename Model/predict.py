@@ -5,7 +5,6 @@ from joblib import load
 import warnings
 
 def predict_with_proba(X_test):
-        
     with warnings.catch_warnings():
         warnings.simplefilter("ignore")
         X_test = X_test.reshape(1, -1)
