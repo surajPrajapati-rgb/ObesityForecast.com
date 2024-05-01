@@ -24,5 +24,12 @@ Contributions are welcome! If you'd like to contribute to this project, please f
 5. Push to the branch (`git push origin feature/your-feature-name`).
 6. Create a new Pull Request.
 
+## Contributors
+- Suraj Kumar Prajapati
+- Shivam Kumar
+- Rajat Malviya
+- Nikhil Verma
+- Manvendra Singh
+
 ## Contact
 For any inquiries or suggestions, please contact [jnvsuraj7388@gmail.com]
